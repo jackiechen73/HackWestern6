@@ -1,26 +1,23 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
+import LocationField from './searchFields/location';
+import AddressField from './searchFields/address';
+import DateField from './searchFields/date';
+// import {BrowserRouter as Router, Route, Link} from 'react-dom';
 import './App.css';
+import $ from 'jquery';
 
 class App extends Component {
   
   render() {
     return(
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div>
+          <LocationField/>
+        </div>
+        {/* <div>
+          <DateField message='start date'/>
+        </div> */}
       </div>
     );
   }
