@@ -32,33 +32,27 @@ class StartDateField extends Component {
             endDateField: date
         }) : this.showError('Ending date must be after starting date');
     };
-
-    
     
     render() {
         return (
-            <div>
+            <div>                
                 <div>
-                    <p>
-                        Start Date:
-                    </p>
-                    <img class='calendar-image' src={calendar} alt="calendar"/>
+                    <p className="date-label">Start Date:</p>
+                    <img className='calendar-image' src={calendar} alt="calendar"/>
                     <DatePicker
                         selected={this.state.startDateField}
                         onChange={this.handleChangeStart}
                     />
                 </div>
+                <br/>
                 <div>
-                    <p>
-                        End Date:
-                    </p>
-                    <img class='calendar-image' src={calendar} alt="calendar"/>
+                    <p className="date-label">End Date:</p>
+                    <img className='calendar-image' src={calendar} alt="calendar"/>
                     <DatePicker
                         selected={this.state.endDateField}
                         onChange={this.handleChangeEnd}
                     />
                 </div>
-               
             </div>
         );
     }

@@ -1,4 +1,20 @@
 .calendar-image {
     height: 20px;
-    width: 20px
+    width: 20px;
+}
+
+.column2 {
+    padding: 10px;
+}
+  
+.left {
+    width: 65%;
+}
+  
+.right {
+    width: 35%;
+}
+
+.date-label {
+    float: left;
 }
