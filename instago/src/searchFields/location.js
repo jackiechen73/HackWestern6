@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Autocomplete from "react-autocomplete";
 import '../styles/locationStyle.css';
+import cityData from '../cityData/ca';
 class LocationField extends Component {
     constructor (props) {
         super(props)
@@ -8,19 +9,21 @@ class LocationField extends Component {
           value: '',
         }
     }
-	render() {
-    const autocompleteStyle = {
-        align: 'left',
-        fontSize: '80%'
+
+    createCityData(data) {
+        console.log(data.city);
+        return {
+            id: data.city.concat(', ', data.country),
+            label: data.city.concat(', ', data.country)
+        }
     }
+    //TODO: Figure out how to increase the width of the Autocomplete combobox
+	render() {
 		return(
-			<Autocomplete
-                menuStyle={autocompleteStyle}
-                items={[
-                { id: 'Vancouver, British Columbia', label: 'Vancouver, British Columbia' },
-                { id: 'San Francisco, California', label: 'San Francisco, California' },
-                { id: 'Toronto, Ontario', label: 'Toronto, Ontario' },
-                ]}
+            <Autocomplete
+                items={cityData.map(data => this.createCityData(data))}
+
+                //TODO: Reword shouldItemRender method
                 shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
                 getItemValue={item => item.label}
                 renderItem={(item, highlighted) =>
@@ -28,7 +31,6 @@ class LocationField extends Component {
                     //class='location-dropdown'
                     key={item.id}
                     style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
-                    align='left'
                 >
                     {item.label}
                 </div>
