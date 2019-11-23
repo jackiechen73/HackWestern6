@@ -3,8 +3,10 @@ class AddressField extends Component {
 	render() {
 		return(
 			<div>
-				{this.props.message}
-				Welcome!
+                <p>
+                    Address: 
+                </p>
+				<input type="text" name="address"/>
 			</div>
 		);
 	}

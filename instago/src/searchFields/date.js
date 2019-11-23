@@ -1,29 +1,67 @@
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
+//import Alert from 'react-alert';
+import calendar from '../icons/calendar.svg';
 import "react-datepicker/dist/react-datepicker.css";
+import '../styles/dateStyles.css';
 
-class DateField extends Component {
+class StartDateField extends Component {
 	state = {
-        startDate: new Date()
+        startDate: new Date(),
+        startDateField: new Date(),
+        endDateField: new Date()
+    };
+
+    //TODO: Make error display instead of log on console
+    showError = message  => {
+        console.log(message);
     };
     
-    handleChange = date => {
+    handleChangeStart = date => {
+        date <= this.state.endDateField ?
         this.setState({
-            startDate: date
-        });
+            startDate: date,
+            startDateField: date
+        }) : this.showError('Starting date must be before ending date');
     };
+
+    handleChangeEnd = date => {
+        date >= this.state.startDateField ?
+        this.setState({
+            startDate: date,
+            endDateField: date
+        }) : this.showError('Ending date must be after starting date');
+    };
+
+    
     
     render() {
         return (
             <div>
-                {this.props.message}
-                <DatePicker
-                    selected={this.state.startDate}
-                    onChange={this.handleChange}
-                />
+                <div>
+                    <p>
+                        Start Date:
+                    </p>
+                    <img class='calendar-image' src={calendar} alt="calendar"/>
+                    <DatePicker
+                        selected={this.state.startDateField}
+                        onChange={this.handleChangeStart}
+                    />
+                </div>
+                <div>
+                    <p>
+                        End Date:
+                    </p>
+                    <img class='calendar-image' src={calendar} alt="calendar"/>
+                    <DatePicker
+                        selected={this.state.endDateField}
+                        onChange={this.handleChangeEnd}
+                    />
+                </div>
+               
             </div>
         );
     }
 }
 
-export default DateField;
+export default StartDateField;
