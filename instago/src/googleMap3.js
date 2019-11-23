@@ -74,7 +74,7 @@ class GoogleMaps extends Component {
                                 // optional
                                 onLoad={directionsService => {
                                     console.log('DirectionsService onLoad directionsService: ', directionsService)
-                                }}
+                            npx eslint --init    }}
                                 // optional
                                 onUnmount={directionsService => {
                                     console.log('DirectionsService onUnmount directionsService: ', directionsService)
