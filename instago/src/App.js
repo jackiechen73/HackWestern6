@@ -56,7 +56,7 @@ class App extends Component {
 	render() {
 		return(
 			<div className="App" >
-				<nav className="navbar navbar-light bg-success" > 
+				<nav className="navbar navbar-light" > 
 					<span className="navbar-brand mb-0 h1">
 						<img src={instaLogo} alt='instago logo' height='40px' width='50%'/>
 					</span>
