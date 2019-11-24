@@ -1,37 +1,60 @@
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
- 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
- 
-class GoogleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 43.00,
-      lng: -81.27
-    },
-    zoom: 11
-    // 43°00'34.1"N 81°16'25.6"W
-  };
+import icon1 from './icons/icon1.png';
+import icon2 from './icons/icon2.png';
+import icon3 from './icons/icon3.png';
+import icon4 from './icons/icon4.png';
+import icon5 from './icons/icon5.png';
 
-  handleApiLoaded = (map, maps) => {
-    // use map and maps objects
-  };
- 
-  render() {
-    return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '90vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDMUPKgBpm5daZaNtE6CIe92xWHWFoiX64" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
-        >
-        </GoogleMapReact>
-      </div>
-    );
-  }
+class Map extends Component {
+	constructor(props) {
+		super(props);
+		this.onScriptLoad = this.onScriptLoad.bind(this);
+	}
+
+	setMarkers(map) {
+		if (this.props.hotel) {
+			const icons = [icon1, icon2, icon3, icon4, icon5];
+			for (let i = 0; i < this.props.attractions.length; i++) {
+				var newMarker = new window.google.maps.Marker({
+					position: {lat: this.props.attractions[i].lat, lng: this.props.attractions[i].long},
+					map: map,
+					icon: icons[i]
+				});
+			}
+		} 
+	}
+
+	onScriptLoad() {
+		const map = new window.google.maps.Map(document.getElementById(this.props.id),this.props.options);
+		this.setState({map: map});
+		let directionsRenderer = new window.google.maps.DirectionsRenderer();
+		directionsRenderer.setMap(map);
+		
+		this.props.onMapLoad(map, directionsRenderer);
+	}
+
+	componentDidMount() {
+		if (!window.google) {
+			const script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = `https://maps.google.com/maps/api/js?key=AIzaSyDMUPKgBpm5daZaNtE6CIe92xWHWFoiX64`;
+			script.id = 'googleMaps';
+			document.body.appendChild(script);
+			script.addEventListener('load', e => {
+				this.onScriptLoad()
+			})
+		} 
+		else {
+			this.onScriptLoad()
+		}
+	}
+
+	render() {
+		this.setMarkers(this.state ? this.state.map : null);
+		return (
+			<div style={{ width: "100%", height: "100%" }} id={this.props.id} />
+		);
+	}
 }
- 
-export default GoogleMap;
+
+export default Map;

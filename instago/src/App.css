@@ -1,34 +1,3 @@
-/* .App {
-  text-align: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgb(181, 198, 245);
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-
-.GoogleMaps {
-
-} */
-
 .column {
   padding: 10px;
   float: left;
@@ -43,5 +12,5 @@
 }
 
 .navbar {
-  background-color: "#e3f2fd"
+  background-color: #044925
 }

@@ -1,28 +1,9 @@
-/* 
-.location-component {
-    position: absolute;
-    top: 350px;
-    right: 80px
-}
-
-.date-component {
-    position: absolute;
-    top: 40px;
-    right: 80px
-}
-
-.address-component {
-    position: absolute;
-    top: 250px;
-    right: 80px;
-} */
-
 .bottom {
     border-bottom: 1px solid #000000;
 }
 
 .hotel {
-    background-color: rgba(238, 105, 105, 0.733);
+    background-color: #9BE5BB;
 }
 
 .card {
@@ -45,4 +26,19 @@ padding: 16px 16px;
 
 p::last {
 margin-bottom: 0;
+}
+
+.scrollbox {
+    height: stretch;
+}
+
+.parameter-component {
+    padding: 10px;
+    max-height: 772px;
+    display: flex;
+    overflow-y: auto;
+}
+
+.add-new-button {
+    margin: 10px 10px;
 }
