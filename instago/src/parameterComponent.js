@@ -11,48 +11,61 @@ class ParameterComponent extends Component {
     super()
     this.state = {
       dest: "",
-      length: 1
+      length: 1,
+      res: null,
+      disabled: true
     }
   }
 
   onChangeDest = (e) => {
     this.setState({
-      dest: e.target.dest
-    })
+      dest: e.target.value
+    }, () => {
+      console.log(this.state.dest)
+      this.setState({
+          disabled: !(this.state.dest !== "" && this.state.length != 0 && this.state.length != null)
+      })
+    });
+    console.log(this.state.disabled)
   }
   
   onChangeLength = (e) => {
     this.setState({
-      length: e.target.length
-    })
+      length: e.target.value
+    }, () => {
+      console.log(this.state.length)
+      this.setState({
+        disabled: !(this.state.dest !== "" && this.state.length != 0 && this.state.length != null)
+      })
+    });
+    console.log(this.state.disabled)
   }
 
   planTrip = (e) => {
     console.log("click")
-    const LINK = "https://xenown.api.stdlib.com/plan-trip@0.0.3/";
+    let LINK = "https://xenown.api.stdlib.com/plan-trip@0.0.5/?destination=" + this.state.dest + "&days=" + this.state.length;
     fetch(LINK, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
       headers: {
         "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        destination: this.state.dest,
-        days: this.state.length,
-        name: "Test"
-      })
+      }
     }).then((res) => {
-      console.log(res.json());
-      console.log("Complete")
+      res.json().then((data) => {
+        this.setState({
+          res: data
+        })
+        console.log(data);
+        console.log("Complete");
+      })
     });
-    
   }
 
   render() {
     return(
       <div className='parameter-component'>
-        <div className="container">
+        <div className="container bottom">
           <div className="row">
             <div className="col-10">
               <div className="row">
@@ -63,7 +76,7 @@ class ParameterComponent extends Component {
                     <div className="input-group-prepend">
                     <span className="input-group-text">Destination</span>
                     </div>
-                    <input type="text" className="form-control" onChange={this.onChangeDest} text={this.state.dest}/>
+                    <input type="text" className="form-control" onChange={this.onChangeDest} value={this.state.dest}/>
                 </div>
               </div>
               <div className="row">
@@ -71,14 +84,36 @@ class ParameterComponent extends Component {
                     <div className="input-group-prepend">
                     <span className="input-group-text">Length of Trip (Days)</span>
                     </div>
-                    <input type="number" className="form-control" onChange={this.onChangeLength} text={this.state.length}/>
+                    <input type="number" className="form-control" onChange={this.onChangeLength} value={this.state.length}></input>
                 </div>
               </div>
             </div>
             <div className="col-2">
-              <button className="btn btn-success" onClick={this.planTrip}>Plan!</button>
+              <button className={`btn btn-success btn-block ${this.state.disabled ? "disabled" : ""}`} onClick={this.planTrip}>Plan!</button>
             </div>
           </div>
+          {this.state.res !== null ?
+            <div className="row"> 
+              <div className="row">
+                <p>{this.state.res.hotel.name}</p>
+                <p>{this.state.res.hotel.address}</p>
+              </div>
+              <div className="row">
+                {this.state.res.topChoices.map(
+                  (choice, i) => (
+                  <div className="ex1 card" id={i}>
+                    <div className="container">
+                        <p>{choice.name}</p>
+                        <p>{choice.address}</p>
+                        <p>Rating: {choice.rating}</p>
+                    </div>
+                  </div>
+                  )
+                )}
+              </div>
+            </div>
+            : <div className="row"></div>
+          }
         </div>
         {/* <div className='address-component'>
           <AddressField/>

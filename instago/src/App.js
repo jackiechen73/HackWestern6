@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ParameterComponent from './parameterComponent';
-// import GoogleMap from './googleMap';
+import GoogleMap from './googleMap';
 // import GoogleMaps from './googleMap2';
 // import GoogleMaps from './googleMap3'
 import Map from './googleMap4'
