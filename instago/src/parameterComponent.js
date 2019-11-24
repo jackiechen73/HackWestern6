@@ -7,8 +7,8 @@ import './styles/parameterStyles.css';
 
 class ParameterComponent extends Component {
   
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       dest: "",
       length: 1,
@@ -21,28 +21,23 @@ class ParameterComponent extends Component {
     this.setState({
       dest: e.target.value
     }, () => {
-      console.log(this.state.dest)
       this.setState({
-          disabled: !(this.state.dest !== "" && this.state.length != 0 && this.state.length != null)
+          disabled: !(this.state.dest !== "" && this.state.length !== 0 && this.state.length !== null)
       })
     });
-    console.log(this.state.disabled)
   }
   
   onChangeLength = (e) => {
     this.setState({
       length: e.target.value
     }, () => {
-      console.log(this.state.length)
       this.setState({
-        disabled: !(this.state.dest !== "" && this.state.length != 0 && this.state.length != null)
+        disabled: !(this.state.dest !== "" && this.state.length !== 0 && this.state.length !== null)
       })
     });
-    console.log(this.state.disabled)
   }
 
   planTrip = (e) => {
-    console.log("click")
     let LINK = "https://xenown.api.stdlib.com/plan-trip@0.0.5/?destination=" + this.state.dest + "&days=" + this.state.length;
     fetch(LINK, {
       method: "POST",
@@ -56,6 +51,7 @@ class ParameterComponent extends Component {
         this.setState({
           res: data
         })
+        this.props.callBack(data.topChoices, data.hotel);
         console.log(data);
         console.log("Complete");
       })
@@ -65,7 +61,7 @@ class ParameterComponent extends Component {
   render() {
     return(
       <div className='parameter-component'>
-        <div className="container bottom">
+        <div className="container">
           <div className="row">
             <div className="col-10">
               <div className="row">
@@ -94,22 +90,25 @@ class ParameterComponent extends Component {
           </div>
           {this.state.res !== null ?
             <div className="row"> 
-              <div className="row">
-                <p>{this.state.res.hotel.name}</p>
-                <p>{this.state.res.hotel.address}</p>
-              </div>
-              <div className="row">
-                {this.state.res.topChoices.map(
-                  (choice, i) => (
-                  <div className="ex1 card" id={i}>
-                    <div className="container">
-                        <p>{choice.name}</p>
-                        <p>{choice.address}</p>
-                        <p>Rating: {choice.rating}</p>
+              <div className="col">
+                <div className="row">
+                  <h5>{this.state.res.hotel.name}</h5>
+                  <h5>{this.state.res.hotel.address}</h5>
+                </div>
+                <div className="row">
+                  {this.state.res.topChoices.map(
+                    (choice, i) => (
+                    <div className="ex1 card" key={i}>
+                      <div className="container">
+                          <h5>{choice.name}</h5>
+                          {choice.address}
+                          <br/>
+                          Rating: {choice.rating}
+                      </div>
                     </div>
-                  </div>
-                  )
-                )}
+                    )
+                  )}
+                </div>
               </div>
             </div>
             : <div className="row"></div>
