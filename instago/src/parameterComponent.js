@@ -92,8 +92,12 @@ class ParameterComponent extends Component {
             <div className="row"> 
               <div className="col">
                 <div className="row">
-                  <h5>{this.state.res.hotel.name}</h5>
-                  <h5>{this.state.res.hotel.address}</h5>
+                  <div className="ex1 card hotel">
+                      <div className="container">
+                        <h5>{this.state.res.hotel.name}</h5>
+                        <h5>{this.state.res.hotel.address}</h5>
+                      </div>
+                  </div>
                 </div>
                 <div className="row">
                   {this.state.res.topChoices.map(
